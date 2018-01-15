@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package pl.lukaszpelczar.p8_udacity_newsapp;
 
 import android.content.Context;
@@ -55,16 +40,16 @@ public class StoryAdapter extends ArrayAdapter<Story> {
         Story currentStory = getItem(position);
 
         TextView sectionView = (TextView) listItemView.findViewById(R.id.section_name);
-        sectionView.setText(currentStory.getmSection());
+        sectionView.setText(currentStory.getSection());
 
         TextView authorView = (TextView) listItemView.findViewById(R.id.author_name);
-        authorView.setText(currentStory.getmAuthor());
+        authorView.setText(currentStory.getAuthor());
 
         TextView titleView = (TextView) listItemView.findViewById(R.id.story_title);
-        titleView.setText(currentStory.getmTitle());
+        titleView.setText(currentStory.getTitle());
 
         TextView dateView = (TextView) listItemView.findViewById(R.id.story_date);
-        String formattedDate = formatDate(currentStory.getmDate());
+        String formattedDate = formatDate(currentStory.getDate());
         dateView.setText(formattedDate);
 
         // Return the list item view that is now showing the appropriate data

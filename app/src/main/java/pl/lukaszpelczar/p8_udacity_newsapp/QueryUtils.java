@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package pl.lukaszpelczar.p8_udacity_newsapp;
 
 import android.text.TextUtils;
@@ -189,21 +174,27 @@ public final class QueryUtils {
                 // Get a single story at position i within the list of stories
                 JSONObject currentStory = storyArray.getJSONObject(i);
 
-                String date = currentStory.getString(WEB_PUBLICATION_DATE);
+                String date = currentStory.optString(WEB_PUBLICATION_DATE);
 
-                String title = currentStory.getString(WEB_TITLE);
+                String title = currentStory.optString(WEB_TITLE);
 
-                String section = currentStory.getString(SECTION_NAME);
+                String section = currentStory.optString(SECTION_NAME);
 
-                String url = currentStory.getString(WEB_URL);
+                String url = currentStory.optString(WEB_URL);
 
-                JSONArray tagsArray = currentStory.getJSONArray(TAGS);
+                String author = NO_AVAILABLE;
 
-                JSONObject currentStoryTags = tagsArray.getJSONObject(TAGS_INDEX);
+                if (currentStory.has(TAGS)) {
 
-                String author = currentStoryTags.getString(WEB_TITLE);
-                if (author.isEmpty()) {
-                    author = NO_AVAILABLE;
+                    JSONArray tagsArray = currentStory.getJSONArray(TAGS);
+
+                    if (!tagsArray.isNull(TAGS_INDEX)) {
+                        JSONObject currentStoryTags = tagsArray.getJSONObject(TAGS_INDEX);
+
+                        if (currentStory.has(WEB_TITLE)) {
+                            author = currentStoryTags.getString(WEB_TITLE);
+                        }
+                    }
                 }
 
                 // Create a new {@link Story} object
