@@ -33,6 +33,9 @@ public class StoryActivity extends AppCompatActivity
     /** URL for stories from Guardian API */
     private static String GUARDIAN_REQUEST_URL = "";
 
+    private static final String URL_FIRST_PART = "https://content.guardianapis.com/search?order-by=newest&q=";
+    private static final String URL_SECOND_PART = "&show-tags=contributor&api-key=";
+
     /**
      * Constant value for the story loader ID. We can choose any integer.
      * This really only comes into play if you're using multiple loaders.
@@ -117,9 +120,7 @@ public class StoryActivity extends AppCompatActivity
         String query = sharedPreferences.getString(getResources().getString(R.string.pref_query_key),
                 getResources().getString(R.string.pref_query_default));
 
-        StoryActivity.setGuardianRequestUrl(
-                "https://content.guardianapis.com/search?order-by=newest&q=" + query +
-                        "&show-tags=contributor&api-key=" + KEY);
+        StoryActivity.setGuardianRequestUrl(URL_FIRST_PART + query + URL_SECOND_PART + KEY);
 
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -132,10 +133,7 @@ public class StoryActivity extends AppCompatActivity
             String query = sharedPreferences.getString(key,
                     getResources().getString(R.string.pref_query_default));
 
-            StoryActivity.setGuardianRequestUrl(
-                    "https://content.guardianapis.com/search?order-by=newest&q=" + query +
-                    "&show-tags=contributor&api-key=" + KEY);
-            super.recreate();
+            StoryActivity.setGuardianRequestUrl(URL_FIRST_PART + query + URL_SECOND_PART + KEY);
         }
     }
 
