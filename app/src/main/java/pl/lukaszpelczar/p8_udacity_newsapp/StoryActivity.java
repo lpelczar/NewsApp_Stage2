@@ -30,12 +30,8 @@ public class StoryActivity extends AppCompatActivity
 
     private static final String KEY = BuildConfig.GUARDIAN_API;
 
-    private static String query = "";
     /** URL for stories from Guardian API */
-    private static String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?order-by=newest&q=" +
-                    query +
-                    "&show-tags=contributor&api-key=" + KEY;
+    private static String GUARDIAN_REQUEST_URL = "";
 
     /**
      * Constant value for the story loader ID. We can choose any integer.
@@ -118,8 +114,12 @@ public class StoryActivity extends AppCompatActivity
         // Get all of the values from shared preferences to set it up
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-        StoryActivity.setQuery(sharedPreferences.getString(getString(R.string.pref_query_key),
-                getResources().getString(R.string.pref_query_default)));
+        String query = sharedPreferences.getString(getResources().getString(R.string.pref_query_key),
+                getResources().getString(R.string.pref_query_default));
+
+        StoryActivity.setGuardianRequestUrl(
+                "https://content.guardianapis.com/search?order-by=newest&q=" + query +
+                        "&show-tags=contributor&api-key=" + KEY);
 
         // Register the listener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -129,8 +129,13 @@ public class StoryActivity extends AppCompatActivity
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (key.equals(getString(R.string.pref_query_key))) {
             // Set the query value
-            StoryActivity.setQuery(sharedPreferences.getString(key,
-                    getResources().getString(R.string.pref_query_default)));
+            String query = sharedPreferences.getString(key,
+                    getResources().getString(R.string.pref_query_default));
+
+            StoryActivity.setGuardianRequestUrl(
+                    "https://content.guardianapis.com/search?order-by=newest&q=" + query +
+                    "&show-tags=contributor&api-key=" + KEY);
+            super.recreate();
         }
     }
 
@@ -196,7 +201,7 @@ public class StoryActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public static void setQuery(String query) {
-        StoryActivity.query = query;
+    public static void setGuardianRequestUrl(String url) {
+        StoryActivity.GUARDIAN_REQUEST_URL = url;
     }
 }

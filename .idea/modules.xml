@@ -3,9 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/P8_Udacity_NewsApp.iml" filepath="$PROJECT_DIR$/P8_Udacity_NewsApp.iml" />
-      <module fileurl="file://F:\P8_Udacity_NewsApp\P8_Udacity_NewsApp.iml" filepath="F:\P8_Udacity_NewsApp\P8_Udacity_NewsApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://F:\P8_Udacity_NewsApp\app\app.iml" filepath="F:\P8_Udacity_NewsApp\app\app.iml" />
     </modules>
   </component>
 </project>
