@@ -1,6 +1,7 @@
 package pl.lukaszpelczar.p8_udacity_newsapp;
 
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -24,7 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
         // When the home button is pressed, take the user back to the StoryActivity
         if (id == android.R.id.home) {
-            onBackPressed();
+            NavUtils.navigateUpFromSameTask(this);
         }
 
         return super.onOptionsItemSelected(item);

@@ -20,11 +20,13 @@ import android.app.LoaderManager.LoaderCallbacks;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,15 +39,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoryActivity extends AppCompatActivity
-        implements LoaderCallbacks<List<Story>> {
+        implements LoaderCallbacks<List<Story>>, SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String LOG_TAG = StoryActivity.class.getName();
 
     private static final String KEY = BuildConfig.GUARDIAN_API;
+
+    private static String query = "";
     /** URL for stories from Guardian API */
-    private static final String GUARDIAN_REQUEST_URL =
-            "https://content.guardianapis.com/search?order-by=newest&q=bitcoin&show-tags=contributor&api-key="
-            + KEY;
+    private static String GUARDIAN_REQUEST_URL =
+            "https://content.guardianapis.com/search?order-by=newest&q=" +
+                    query +
+                    "&show-tags=contributor&api-key=" + KEY;
 
     /**
      * Constant value for the story loader ID. We can choose any integer.
@@ -63,11 +68,7 @@ public class StoryActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.story_activity);
-
-        //These lines of code sets the logo in App Toolbar
-        getSupportActionBar().setDisplayUseLogoEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_account_balance_white_18dp);
+        setupSharedPreferences();
 
         // Find a reference to the {@link ListView} in the layout
         ListView storyListView = (ListView) findViewById(R.id.list);
@@ -128,6 +129,34 @@ public class StoryActivity extends AppCompatActivity
         }
     }
 
+    private void setupSharedPreferences() {
+        // Get all of the values from shared preferences to set it up
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        StoryActivity.setQuery(sharedPreferences.getString(getString(R.string.pref_query_key),
+                getResources().getString(R.string.pref_query_default)));
+
+        // Register the listener
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(getString(R.string.pref_query_key))) {
+            // Set the query value
+            StoryActivity.setQuery(sharedPreferences.getString(key,
+                    getResources().getString(R.string.pref_query_default)));
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Unregister StoryActivity as an OnPreferenceChangedListener to avoid any memory leaks.
+        PreferenceManager.getDefaultSharedPreferences(this)
+                .unregisterOnSharedPreferenceChangeListener(this);
+    }
+
     @Override
     public Loader<List<Story>> onCreateLoader(int i, Bundle bundle) {
         // Create a new loader for the given URL
@@ -180,5 +209,9 @@ public class StoryActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public static void setQuery(String query) {
+        StoryActivity.query = query;
     }
 }
