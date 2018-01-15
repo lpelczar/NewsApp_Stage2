@@ -18,7 +18,7 @@ android {
         }
     }
 
-    buildTypes.each{
+    buildTypes.each {
         it.buildConfigField 'String', 'GUARDIAN_API', GuardianApi
     }
 }
