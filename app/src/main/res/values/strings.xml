@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">\nBitcoin News</string>
+    <string name="app_name">\nNews App</string>
     <!-- Text to display in the list when there are no earthquakes [CHAR LIMIT=NONE] -->
     <string name="no_stories">No stories found. Try again later.</string>
 
