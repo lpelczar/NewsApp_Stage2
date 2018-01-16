@@ -26,8 +26,6 @@ import java.util.List;
 public class StoryActivity extends AppCompatActivity
         implements LoaderCallbacks<List<Story>>, SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private static final String LOG_TAG = StoryActivity.class.getName();
-
     private static final String KEY = "f51da863-1553-4b0f-8207-bad009cf42d4";
 
     /** URL for stories from Guardian API */

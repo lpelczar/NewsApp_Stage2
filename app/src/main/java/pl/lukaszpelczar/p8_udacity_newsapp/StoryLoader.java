@@ -11,9 +11,6 @@ import java.util.List;
  */
 public class StoryLoader extends AsyncTaskLoader<List<Story>> {
 
-    /** Tag for log messages */
-    private static final String LOG_TAG = StoryLoader.class.getName();
-
     /** Query URL */
     private String mUrl;
 
