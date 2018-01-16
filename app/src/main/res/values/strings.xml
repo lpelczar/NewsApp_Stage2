@@ -13,4 +13,12 @@
     <string name="pref_query_key" translatable="false">query</string>
 
     <string name="pref_query_default" translatable="false">Bitcoin</string>
+
+    <string name="sample_section_name">Section name</string>
+
+    <string name="sample_date">Mar 6, 2010</string>
+
+    <string name="sample_author">Steve Jobs</string>
+
+    <string name="sample_story_title">Title of the story</string>
 </resources>

@@ -11,7 +11,7 @@
         android:fontFamily="sans-serif-medium"
         android:maxLines="1"
         android:textSize="12sp"
-        tools:text="Section Name" />
+        tools:text="@string/sample_section_name" />
 
     <TextView
         android:id="@+id/story_date"
@@ -21,7 +21,7 @@
         android:layout_alignParentRight="true"
         android:textColor="@android:color/black"
         android:textSize="12sp"
-        tools:text="Mar 6, 2010" />
+        tools:text="@string/sample_date" />
 
     <TextView
         android:id="@+id/author_name"
@@ -32,7 +32,7 @@
         android:layout_alignRight="@id/story_date"
         android:textColor="@android:color/black"
         android:textSize="12sp"
-        tools:text="Steve Jobs" />
+        tools:text="@string/sample_author" />
 
 
     <TextView
@@ -45,6 +45,6 @@
         android:maxLines="2"
         android:textColor="@android:color/black"
         android:textSize="16sp"
-        tools:text="Title of the story" />
+        tools:text="@string/sample_story_title" />
 
 </RelativeLayout>
